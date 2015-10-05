@@ -38,13 +38,13 @@ The request ID is returned to us in the result from the initial call...
 request_id = result['results'][0]['id']
 ```
 
-...and we call poll this to check on status...
+...and we can poll this to check on status...
 
 ```ruby
 query = "/api/automation_requests/#{request_id}"
 rest_return = RestClient::Request.execute(
-								method: :get, 
-								url: url + query, 
+								method: :get,
+								url: url + query,
 								:user => username,
 								:password => password,
 								:headers => {:accept => :json},
@@ -68,7 +68,7 @@ end
 
 #### Returning Results to the Caller
 
-The _request_ task's options hash is included in the return from the RestClient::Request call, and we can use this to our advantage, by using set_option to add return data in the form of key/value pairs to the options hash from our called Automation method. 
+The _request_ task's options hash is included in the return from the RestClient::Request call, and we can use this to our advantage, by using set_option to add return data in the form of key/value pairs to the options hash from our called Automation method.
 
 For example from the _called_ (Automate) method...
 
@@ -169,7 +169,7 @@ begin
     end
   end
   parser.parse!
-  
+
   if options[:password] && options[:prompt]
     puts "Ambiguous: specify either --password or --prompt but not both"
     exit!
@@ -214,13 +214,13 @@ begin
   options[:parameters].each do |parameter|
     parameter_hash[parameter[0]] = parameter[1]
   end
-  
+
   message = "Running automation method "
   message += "#{options[:namespace]}/#{options[:class]}/#{options[:instance]}"
   message += " using parameters: "
   message += "#{parameter_hash.inspect}"
   puts message
-  
+
   post_params = {
     :version => '1.1',
     :uri_parts => {
@@ -266,7 +266,7 @@ begin
   until request_state == "finished"
     puts "Checking completion state..."
     rest_return = RestClient::Request.execute(
-    					method: :get, 
+    					method: :get,
     					url: url + query,
     					:user => username,
     					:password => password,
